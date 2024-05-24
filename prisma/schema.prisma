@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AREAS_OF_EXPERTISE {
+  AI
+  WEB
+  MOBILE
+}
+
+enum CONSULTATION_MODE {
+  TEXT
+  IN_PERSON
+  VIDEO
+}
+
+enum CONSULTATION_STATUS {
+  REQUESTED
+  ACCEPTED
+  STARTED
+  ENDED
+}
+
+model User {
+  id                    String             @id @default(uuid())
+  createdAt             DateTime           @default(now())
+  name                  String
+  email                 String
+  password              String
+  isOpenToConsult       Boolean
+  areas                 AREAS_OF_EXPERTISE @default(WEB)
+  givenConsultations    Consultation[]     @relation("Consultant")
+  receivedConsultations Consultation[]     @relation("Consultee")
+}
+
+model Consultation {
+  id           String              @id @default(uuid())
+  createdAt    DateTime            @default(now())
+  consultantId String
+  consulteeId  String
+  consultant   User                @relation("Consultant", fields: [consultantId], references: [id])
+  consultee    User                @relation("Consultee", fields: [consulteeId], references: [id])
+  area         AREAS_OF_EXPERTISE
+  mode         CONSULTATION_MODE
+  startedAt    DateTime
+  endedAt      DateTime
+  charges      Float
+  status       CONSULTATION_STATUS
+}
