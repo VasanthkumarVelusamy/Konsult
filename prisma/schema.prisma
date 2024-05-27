@@ -36,7 +36,7 @@ model User {
   id                    String             @id @default(uuid())
   createdAt             DateTime           @default(now())
   name                  String
-  email                 String
+  email                 String             @unique
   password              String
   isOpenToConsult       Boolean
   areas                 AREAS_OF_EXPERTISE @default(WEB)
