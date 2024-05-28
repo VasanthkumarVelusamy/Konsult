@@ -7,7 +7,6 @@ const router = Router()
  */
 router.get('/user', (req, res)=>{res.json({message: "welcome"}) })
 router.get('/user/:id', ()=>{})
-router.post('/user', ()=>{})
 router.put('/user/:id', ()=>{})
 router.delete('user/:id', ()=>{})
 

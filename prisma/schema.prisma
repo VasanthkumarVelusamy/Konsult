@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AREAS_OF_EXPERTISE {
+enum AREA_OF_EXPERTISE {
   AI
   WEB
   MOBILE
@@ -33,15 +33,15 @@ enum CONSULTATION_STATUS {
 }
 
 model User {
-  id                    String             @id @default(uuid())
-  createdAt             DateTime           @default(now())
+  id                    String              @id @default(uuid())
+  createdAt             DateTime            @default(now())
   name                  String
-  email                 String             @unique
+  email                 String              @unique
   password              String
   isOpenToConsult       Boolean
-  areas                 AREAS_OF_EXPERTISE @default(WEB)
-  givenConsultations    Consultation[]     @relation("Consultant")
-  receivedConsultations Consultation[]     @relation("Consultee")
+  areas                 AREA_OF_EXPERTISE[]
+  givenConsultations    Consultation[]      @relation("Consultant")
+  receivedConsultations Consultation[]      @relation("Consultee")
 }
 
 model Consultation {
@@ -51,7 +51,7 @@ model Consultation {
   consulteeId  String
   consultant   User                @relation("Consultant", fields: [consultantId], references: [id])
   consultee    User                @relation("Consultee", fields: [consulteeId], references: [id])
-  area         AREAS_OF_EXPERTISE
+  area         AREA_OF_EXPERTISE
   mode         CONSULTATION_MODE
   startedAt    DateTime
   endedAt      DateTime
