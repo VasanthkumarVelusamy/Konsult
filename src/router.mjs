@@ -1,15 +1,15 @@
 import {Router} from 'express'
 import { handleInputErrors } from './modules/middleware.mjs'
 import { createConsultationValidator, updateConsultationValidator, updateUserValidator } from './modules/validators.mjs'
-import { updateUser } from './handlers/user.mjs'
+import { getUser, getUsers, updateUser } from './handlers/user.mjs'
 
 const router = Router()
 
 /**
  * User
  */
-router.get('/user', (req, res)=>{res.json({message: "welcome"}) })
-router.get('/user/:id', ()=>{})
+router.get('/users', getUsers)
+router.get('/user', getUser)
 router.put('/user', updateUserValidator(), handleInputErrors, updateUser)
 router.delete('user/:id', ()=>{})
 

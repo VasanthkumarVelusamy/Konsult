@@ -42,3 +42,19 @@ export const updateUser = async (req, res) => {
 
     res.json({data: user})
 }
+
+export const getUser = async (req, res) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.user.id
+        }
+    })
+
+    res.json({data: user})
+}
+
+export const getUsers = async (req, res) => {
+    const users = await prisma.user.findMany()
+
+    res.json({data: users})
+}
