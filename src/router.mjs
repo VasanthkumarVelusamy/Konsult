@@ -18,7 +18,7 @@ router.delete('user/:id', ()=>{})
 router.get('/consultation', ()=>{})
 router.get('/consultation/:id', ()=>{})
 router.post('/consultation', [body('consultantId').isString().exists(), body('consulteeId').isString().exists(), body('mode').exists(), body('area').exists()], handleInputErrors, ()=>{})
-router.put('consultation/:id', [body('consultantId').isString().optional(), body('consulteeId').isString().optional(), body('mode').optional(), body('area').optional()], handleInputErrors, ()=>{})
+router.put('consultation/:id', [body('consultantId').isString().optional(), body('consulteeId').isString().optional(), body('mode').optional(), body('area').optional()], body('area').isIn(['AI', 'WEB', 'MOBILE']), body('mode').isIn(['TEXT', 'IN_PERSON', 'VIDEO']), handleInputErrors, ()=>{})
 router.delete('consulation/:id', ()=>{})
 
 export default router
