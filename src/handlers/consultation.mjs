@@ -80,13 +80,13 @@ export const getConsultation = async (req, res) => {
 export const getUserConsultations = async (req, res) => {
     const givenConsultation = await prisma.consultation.findMany({
         where: {
-            consultantId: req.params.id
+            consultantId: req.user.id
         }
     })
 
     const receivedConsultation = await prisma.consultation.findMany({
         where: {
-            consulteeId: req.params.id
+            consulteeId: req.user.id
         }
     })
 
