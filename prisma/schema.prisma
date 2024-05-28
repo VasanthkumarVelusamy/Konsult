@@ -53,8 +53,8 @@ model Consultation {
   consultee    User                @relation("Consultee", fields: [consulteeId], references: [id])
   area         AREA_OF_EXPERTISE
   mode         CONSULTATION_MODE
-  startedAt    DateTime?
-  endedAt      DateTime?
+  startAt      DateTime?
+  endAt        DateTime?
   charges      Float?
   status       CONSULTATION_STATUS @default(REQUESTED)
 }
