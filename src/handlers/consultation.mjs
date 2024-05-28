@@ -64,7 +64,36 @@ export const updateConsultation = async (req, res) => {
         return 
     }
 
+    res.json({data: consulation})
+}
 
+export const getConsultation = async (req, res) => {
+    const consulation = await prisma.consultation.findUnique({
+        where: {
+            id: req.params.id
+        }
+    })
 
     res.json({data: consulation})
+}
+
+export const getUserConsultations = async (req, res) => {
+    const givenConsultation = await prisma.consultation.findMany({
+        where: {
+            consultantId: req.params.id
+        }
+    })
+
+    const receivedConsultation = await prisma.consultation.findMany({
+        where: {
+            consulteeId: req.params.id
+        }
+    })
+
+    res.json({data: {givenConsultation, receivedConsultation}})
+}
+
+export const getConsultations = async (req, res) => {
+    const consulations = await prisma.consultation.findMany()
+    res.json({data: consulations})
 }
