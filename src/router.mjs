@@ -8,7 +8,10 @@ const router = Router()
  */
 router.get('/user', (req, res)=>{res.json({message: "welcome"}) })
 router.get('/user/:id', ()=>{})
-router.put('/user/:id', body('name').isString(), body('isOpenToConsult').isBoolean(), ()=>{})
+router.put('/user/:id', body('name').isString(), body('isOpenToConsult').isBoolean(), (req, res)=>{
+    const errors = validationResult(req)
+    res.json({errors: errors.array()})
+})
 router.delete('user/:id', ()=>{})
 
 /**
