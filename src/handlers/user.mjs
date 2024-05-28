@@ -31,3 +31,14 @@ export const signin = async (req, res) => {
     const jwt = createJWT(user)
     res.json({jwt})
 }
+
+export const updateUser = async (req, res) => {
+    const user = await prisma.user.update({
+        where: {
+            id: req.user.id
+        },
+        data: req.body
+    })
+
+    res.json({data: user})
+}
