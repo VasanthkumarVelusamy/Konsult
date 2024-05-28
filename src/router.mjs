@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import { body, oneOf, validationResult } from 'express-validator'
 import { handleInputErrors } from './modules/middleware.mjs'
+import { createConsultationValidator, updateConsultationValidator, updateUserValidator } from './modules/validators.mjs'
 
 const router = Router()
 
@@ -9,7 +9,7 @@ const router = Router()
  */
 router.get('/user', (req, res)=>{res.json({message: "welcome"}) })
 router.get('/user/:id', ()=>{})
-router.put('/user/:id', body('name').isString().optional(), body('isOpenToConsult').isBoolean().optional(), oneOf('status', [body('AI'), body('WEB'), body('MOBILE')]).optional(), handleInputErrors, (req, res)=>{ })
+router.put('/user/:id', updateUserValidator(), handleInputErrors, (req, res)=>{})
 router.delete('user/:id', ()=>{})
 
 /**
@@ -17,8 +17,8 @@ router.delete('user/:id', ()=>{})
  */
 router.get('/consultation', ()=>{})
 router.get('/consultation/:id', ()=>{})
-router.post('/consultation', [body('consultantId').isString().exists(), body('consulteeId').isString().exists(), body('mode').exists(), body('area').exists()], handleInputErrors, ()=>{})
-router.put('consultation/:id', [body('consultantId').isString().optional(), body('consulteeId').isString().optional(), body('mode').optional(), body('area').optional()], body('area').isIn(['AI', 'WEB', 'MOBILE']), body('mode').isIn(['TEXT', 'IN_PERSON', 'VIDEO']), handleInputErrors, ()=>{})
-router.delete('consulation/:id', ()=>{})
+router.post('/consultation', createConsultationValidator(), handleInputErrors, ()=>{})
+router.put('/consultation/:id', updateConsultationValidator(), handleInputErrors, ()=>{})
+router.delete('/consulation/:id', ()=>{})
 
 export default router
