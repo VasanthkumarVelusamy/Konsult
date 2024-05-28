@@ -18,7 +18,7 @@ router.delete('user/:id', ()=>{})
  * Consultation
  */
 router.get('/consultation', getConsultations)
-router.get('/userconsultations/:id', getUserConsultations)
+router.get('/userconsultations', getUserConsultations)
 router.get('/consultation/:id', getConsultation)
 router.post('/consultation', createConsultationValidator(), handleInputErrors, createConsultation)
 router.put('/consultation/:id', updateConsultationValidator(), handleInputErrors, updateConsultation)
