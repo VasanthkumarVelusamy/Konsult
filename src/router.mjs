@@ -2,7 +2,7 @@ import {Router} from 'express'
 import { handleInputErrors } from './modules/middleware.mjs'
 import { createConsultationValidator, updateConsultationValidator, updateUserValidator } from './modules/validators.mjs'
 import { getUser, getUsers, updateUser } from './handlers/user.mjs'
-import { createConsultation } from './handlers/consultation.mjs'
+import { createConsultation, updateConsultation } from './handlers/consultation.mjs'
 
 const router = Router()
 
@@ -20,7 +20,7 @@ router.delete('user/:id', ()=>{})
 router.get('/consultation', ()=>{})
 router.get('/consultation/:id', ()=>{})
 router.post('/consultation', createConsultationValidator(), handleInputErrors, createConsultation)
-router.put('/consultation/:id', updateConsultationValidator(), handleInputErrors, ()=>{})
+router.put('/consultation/:id', updateConsultationValidator(), handleInputErrors, updateConsultation)
 router.delete('/consulation/:id', ()=>{})
 
 export default router

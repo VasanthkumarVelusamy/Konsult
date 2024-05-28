@@ -30,9 +30,41 @@ export const createConsultation = async (req, res) => {
             area: req.body.area,
             mode: req.body.mode,
             consultee: { connect: { id: req.body.consulteeId } },
-            consultant: { connect: { id: req.body.consultantId } }
+            consultant: { connect: { id: req.body.consultantId } },
+            startAt: new Date(req.body.startAt),
+            endAt: new Date(req.body.endAt)
         }
     })
 
     res.json({data: consultation})
+}
+
+export const updateConsultation = async (req, res) => {
+
+    const existingConsultation = await prisma.consultation.findUnique ({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    if (existingConsultation.status === "ENDED") {
+        res.json({message: "you cant modify ended consultation"})
+        return 
+    }
+
+    const consulation = await prisma.consultation.update({
+        where: {
+            id: req.params.id
+        },
+        data: req.body
+    })
+
+    if (consulation.consulteeId !== req.user.id) {
+        res.json({message: "you cant modify someones consultation"})
+        return 
+    }
+
+
+
+    res.json({data: consulation})
 }

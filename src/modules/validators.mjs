@@ -4,7 +4,10 @@ export const createConsultationValidator = () => {
     return [
         body('consultantId').isString().exists(), 
         body('consulteeId').isString().exists(), 
-        body('mode').exists(), body('area').exists()
+        body('mode').exists(), 
+        body('area').exists(),
+        body('startAt').exists(),
+        body()
     ]
 }
 
