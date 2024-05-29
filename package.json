@@ -7,9 +7,6 @@
     "test": "jest",
     "dev": "node src/index.mjs"
   },
-  "jest": {
-    "transform": {}
-  },
   "author": "Vasanthkumar Velusamy",
   "license": "ISC",
   "dependencies": {
