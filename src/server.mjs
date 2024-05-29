@@ -14,6 +14,16 @@ app.get('/', (req, res) => {
 
 app.use('/api', protect, router)
 app.post('/user', createNewUser)
-app.post('signin', signin)
+app.post('/signin', signin)
+
+app.use((err, req, res, next) => {
+    if (err.type === 'input') {
+        res.status(400)
+        res.json({message: "invalid input"})
+    } else {
+        res.status(500)
+        res.json({message: "oops! its on us."})
+    }
+})
 
 export default app;
