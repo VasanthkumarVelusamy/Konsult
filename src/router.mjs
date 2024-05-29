@@ -12,7 +12,7 @@ const router = Router()
 router.get('/users', getUsers)
 router.get('/user', getUser)
 router.put('/user', updateUserValidator(), handleInputErrors, updateUser)
-router.delete('user/:id', ()=>{})
+router.delete('/user/:id', ()=>{})
 
 /**
  * Consultation
