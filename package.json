@@ -5,7 +5,8 @@
   "main": "index.mjs",
   "scripts": {
     "test": "jest",
-    "dev": "node src/index.mjs"
+    "dev": "node src/index.mjs",
+    "start": "node src/index.mjs"
   },
   "author": "Vasanthkumar Velusamy",
   "license": "ISC",
