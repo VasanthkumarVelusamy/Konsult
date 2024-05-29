@@ -19,10 +19,10 @@ app.post('/signin', signin)
 app.use((err, req, res, next) => {
     if (err.type === 'input') {
         res.status(400)
-        res.json({message: "invalid input"})
+        res.json({message: `invalid input: ${err}`})
     } else {
         res.status(500)
-        res.json({message: "oops! its on us."})
+        res.json({message: `oops! its on us: ${err} `})
     }
 })
 
